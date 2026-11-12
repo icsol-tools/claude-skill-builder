@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="__PREFIX__.API/__PREFIX__.API.csproj" />
+  <Project Path="__PREFIX__.CQS/__PREFIX__.CQS.csproj" />
+</Solution>

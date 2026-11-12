@@ -1,0 +1,18 @@
+# <unit>/.ai/unit.yaml - identity and archetype map, reviewed by the unit's owners.
+name: {{UNIT_NAME}}
+kind: {{UNIT_KIND}}            # dotnet-solution | dotnet-project | frontend
+purpose: "{{UNIT_PURPOSE}}"
+owners:
+  - TODO
+status: active                  # active | maintenance | deprecated
+archetypes:                     # every controller / page area / hosted service matches exactly one entry
+  - archetype: {{ARCHETYPE}}    # file in .ai/archetypes/
+    paths:
+      - "**"
+    notes: ""
+build: "{{UNIT_BUILD}}"
+test: "{{UNIT_TEST}}"
+lint: "{{UNIT_LINT}}"
+run: "{{UNIT_RUN}}"
+depends_on: []                  # other units, external systems
+last_mapped_commit: TODO        # set by map-unit / docs-refresh

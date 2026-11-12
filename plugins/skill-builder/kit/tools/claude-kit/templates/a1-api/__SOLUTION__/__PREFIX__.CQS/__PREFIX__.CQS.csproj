@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Icsol.Infrastructure" Version="1.0.0.5" />
+    <PackageReference Include="Icsol.Common" Version="1.0.0.9" />
+    <PackageReference Include="Icsol.GlobalizationResources" Version="1.0.0.1" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <!-- pinned: the versions Icsol.Common brings in have known vulnerabilities (Outbound pins the same) -->
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.15" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.3.14" />
+  </ItemGroup>
+
+</Project>

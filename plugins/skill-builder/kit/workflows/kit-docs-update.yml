@@ -1,0 +1,64 @@
+name: kit-docs-update
+
+# claude-kit: on each PR that changes code, Claude regenerates the catalogues and updates ONLY the
+# narrative doc sections the change affects (skill: .claude/skills/{{PREFIX}}-docs-refresh), then pushes one
+# docs commit to the PR branch for reviewers.
+# Setup: secret ANTHROPIC_API_KEY (repo or org) and the Claude GitHub App (/install-github-app in Claude Code).
+# Commits pushed with GITHUB_TOKEN do not trigger new workflow runs, so this cannot loop.
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+    paths-ignore:
+      - "**/.ai/**"
+      - "**/*.md"
+
+concurrency:
+  group: kit-docs-update-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  refresh:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.draft == false &&
+      github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Regenerate catalogues
+        run: python tools/claude-kit/docgen.py
+      - name: Update narrative docs with Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            /{{PREFIX}}-docs-refresh
+            Base ref: ${{ github.event.pull_request.base.sha }}. Head: HEAD. PR title: ${{ github.event.pull_request.title }}
+            Running in CI: the catalogues are already regenerated; do not edit */.ai/generated/ or .ai/system/generated/.
+            Only edit files under .ai/ folders. Do not edit code. Do not commit or push. Never copy configuration values or secrets.
+          claude_args: |
+            --max-turns 30
+            --allowedTools "Read,Glob,Grep,Edit,Write,Bash(git diff:*),Bash(git log:*),Bash(git show:*),Bash(python tools/claude-kit/docgen.py:*)"
+      - name: Commit docs to the PR branch
+        run: |
+          changed=$(git status --porcelain | awk '{print $2}')
+          if [ -z "$changed" ]; then echo "Docs already up to date."; exit 0; fi
+          if echo "$changed" | grep -v -E '(^|/)\.ai/'; then echo "::error::changed files outside .ai/ - refusing to commit"; exit 1; fi
+          git config user.name "kit-docs-bot"
+          git config user.email "kit-docs-bot@users.noreply.github.com"
+          git add -A
+          git commit -m "docs: refresh knowledge pack for #${{ github.event.pull_request.number }} [docs-bot]"
+          git push

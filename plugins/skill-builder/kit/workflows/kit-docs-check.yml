@@ -1,0 +1,41 @@
+name: kit-docs-check
+
+# claude-kit: fast, free, deterministic. Runs on every PR and on pushes to the default branch.
+#  1) generated catalogues must match the code (tools/claude-kit/docgen.py --check)
+#  2) the kit setup must be valid (tools/claude-kit/kit_check.py)
+#  3) the PR must not add SQL built from values, or hard-coded credentials
+
+on:
+  pull_request:
+  push:
+    branches: [{{DEFAULT_BRANCH}}]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generated docs are up to date
+        run: python tools/claude-kit/docgen.py --check
+      - name: Kit setup is valid
+        run: python tools/claude-kit/kit_check.py --ci || (echo "::error::kit_check found FAIL items" && exit 1)
+      - name: No new SQL built from values or hard-coded credentials
+        if: github.event_name == 'pull_request'
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          added=$(git diff -U0 "$base"...HEAD -- '*.cs' '*.vb' '*.ts' '*.tsx' '*.js' '*.jsx' | grep -E '^\+' | grep -v '^+++' || true)
+          sql=$(echo "$added" | grep -Ei '"[^"]*\b(EXEC|SELECT|UPDATE|INSERT|DELETE)\b[^"]*"\s*\+|\$@?"[^"]*(\b(EXEC|SELECT|UPDATE|INSERT|DELETE)\b|@[A-Za-z_]+\s*=)[^"]*\{' || true)
+          cred=$(echo "$added" | grep -E 'sk_live_[0-9A-Za-z]{10,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|ghp_[0-9A-Za-z]{30,}' || true)
+          if [ -n "$sql" ]; then echo "::error::New SQL built from values - use parameters:"; echo "$sql"; fi
+          if [ -n "$cred" ]; then echo "::error::Hard-coded credential added:"; echo "$cred" | sed -E 's/(sk_live_|AKIA|ghp_)[0-9A-Za-z]+/\1***/g'; fi
+          [ -z "$sql$cred" ] && echo "Clean."
+          [ -z "$sql$cred" ]

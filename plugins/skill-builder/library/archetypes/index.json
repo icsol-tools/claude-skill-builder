@@ -1,0 +1,26 @@
+{
+  "_doc": "Maps scanner archetype ids to a starter file and the recipe skills worth offering. setup-repo writes the repo's own .ai/archetypes/<id>.md from the starter + mined conventions.",
+  "map": {
+    "dotnet-cqs-api":      {"starter": "dotnet-api.md", "variant": "CQS command/query handlers + dispatchers", "recipes": ["add-endpoint", "add-entity"], "example": "examples/gain-core-services/a1-cqs-api.md"},
+    "dotnet-mediatr-api":  {"starter": "dotnet-api.md", "variant": "MediatR requests/handlers", "recipes": ["add-endpoint", "add-entity"]},
+    "dotnet-web-api":      {"starter": "dotnet-api.md", "variant": "controllers + services/repositories", "recipes": ["add-endpoint", "add-entity"]},
+    "dotnet-minimal-api":  {"starter": "dotnet-api.md", "variant": "minimal API endpoint groups", "recipes": ["add-endpoint"]},
+    "dotnet-queue-worker": {"starter": "dotnet-queue-worker.md", "recipes": ["add-message-handler", "add-integration-target"], "example": "examples/gain-core-services/a2-queue-worker.md"},
+    "dotnet-worker":       {"starter": "dotnet-queue-worker.md", "variant": "scheduled / background worker without a queue", "recipes": ["add-scheduled-job"]},
+    "dotnet-legacy-ba-da": {"starter": "dotnet-legacy-layered.md", "recipes": ["legacy-change"], "example": "examples/gain-core-services/b-legacy-ba-da.md"},
+    "dotnet-library":      {"starter": "generic.md", "recipes": []},
+    "dotnetfx-webapi":     {"starter": "dotnetfx-web.md", "variant": "ASP.NET Web API 2", "recipes": ["add-endpoint"]},
+    "dotnetfx-mvc":        {"starter": "dotnetfx-web.md", "variant": "ASP.NET MVC 5", "recipes": ["add-mvc-page"]},
+    "dotnetfx-webforms":   {"starter": "dotnetfx-webforms-wcf.md", "variant": "Web Forms", "recipes": ["legacy-change"]},
+    "dotnetfx-wcf":        {"starter": "dotnetfx-webforms-wcf.md", "variant": "WCF services", "recipes": ["add-wcf-operation"]},
+    "dotnetfx-library":    {"starter": "generic.md", "recipes": []},
+    "react-vite-spa":      {"starter": "react-spa.md", "variant": "React + Vite", "recipes": ["add-page", "add-component", "add-api-call"]},
+    "react-cra-spa":       {"starter": "react-spa.md", "variant": "Create React App", "recipes": ["add-page", "add-component", "add-api-call"]},
+    "react-spa":           {"starter": "react-spa.md", "recipes": ["add-page", "add-component", "add-api-call"]},
+    "nextjs-app-router":   {"starter": "nextjs-app.md", "variant": "App Router", "recipes": ["add-page", "add-api-route", "add-component"]},
+    "nextjs-pages-router": {"starter": "nextjs-app.md", "variant": "Pages Router", "recipes": ["add-page", "add-api-route", "add-component"]},
+    "angular-app":         {"starter": "angular-app.md", "recipes": ["add-feature-route", "add-component", "add-api-call"]},
+    "vue-app":             {"starter": "generic.md", "recipes": ["add-page", "add-component"]},
+    "frontend-generic":    {"starter": "generic.md", "recipes": []}
+  }
+}

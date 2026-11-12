@@ -1,0 +1,16 @@
+name: __SOLUTION__
+purpose: "__PURPOSE__"
+owners:
+  - TODO
+status: active
+archetypes:
+  - archetype: A1
+    paths:
+      - __PREFIX__.API/**
+      - __PREFIX__.CQS/**
+    notes: Created from tools/claude-kit/templates/a1-api on __DATE__. Validation in handlers; API key middleware for auth.
+build: dotnet build __SOLUTION__.slnx -c Release
+run: dotnet run --project __PREFIX__.API
+depends_on:
+  - TODO   # callers, called systems, databases
+last_mapped_commit: TODO

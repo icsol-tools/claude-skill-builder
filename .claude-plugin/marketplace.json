@@ -1,0 +1,13 @@
+{
+  "name": "infocruise-tools",
+  "description": "Infocruise internal Claude Code plugins.",
+  "owner": { "name": "Infocruise engineering" },
+  "plugins": [
+    {
+      "name": "skill-builder",
+      "source": "./plugins/skill-builder",
+      "description": "Scan a repo, interview the team, deploy repo-specific skills, knowledge packs, doc tools and CI into it.",
+      "category": "development"
+    }
+  ]
+}

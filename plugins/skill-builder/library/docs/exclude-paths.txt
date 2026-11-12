@@ -1,0 +1,4 @@
+# Folders the Claude kit ignores completely: no generated docs, packs or checks, and Claude Code is denied reading or
+# editing them (.claude/settings.json). One repo-relative path per line, forward slashes. # starts a comment.
+{{EXCLUDES}}
+tools/claude-kit/templates
