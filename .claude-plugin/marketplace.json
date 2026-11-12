@@ -1,7 +1,10 @@
 {
-  "name": "infocruise-tools",
-  "description": "Infocruise internal Claude Code plugins.",
-  "owner": { "name": "Infocruise engineering" },
+  "name": "icsol-tools",
+  "description": "Claude Code plugins from icsol-tools.",
+  "owner": {
+    "name": "icsol-tools",
+    "url": "https://github.com/icsol-tools"
+  },
   "plugins": [
     {
       "name": "skill-builder",

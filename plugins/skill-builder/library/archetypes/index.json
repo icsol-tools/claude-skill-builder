@@ -1,13 +1,13 @@
 {
   "_doc": "Maps scanner archetype ids to a starter file and the recipe skills worth offering. setup-repo writes the repo's own .ai/archetypes/<id>.md from the starter + mined conventions.",
   "map": {
-    "dotnet-cqs-api":      {"starter": "dotnet-api.md", "variant": "CQS command/query handlers + dispatchers", "recipes": ["add-endpoint", "add-entity"], "example": "examples/gain-core-services/a1-cqs-api.md"},
+    "dotnet-cqs-api":      {"starter": "dotnet-api.md", "variant": "CQS command/query handlers + dispatchers", "recipes": ["add-endpoint", "add-entity"], "example": "examples/contoso-orders/a1-cqs-api.md"},
     "dotnet-mediatr-api":  {"starter": "dotnet-api.md", "variant": "MediatR requests/handlers", "recipes": ["add-endpoint", "add-entity"]},
     "dotnet-web-api":      {"starter": "dotnet-api.md", "variant": "controllers + services/repositories", "recipes": ["add-endpoint", "add-entity"]},
     "dotnet-minimal-api":  {"starter": "dotnet-api.md", "variant": "minimal API endpoint groups", "recipes": ["add-endpoint"]},
-    "dotnet-queue-worker": {"starter": "dotnet-queue-worker.md", "recipes": ["add-message-handler", "add-integration-target"], "example": "examples/gain-core-services/a2-queue-worker.md"},
+    "dotnet-queue-worker": {"starter": "dotnet-queue-worker.md", "recipes": ["add-message-handler", "add-integration-target"], "example": "examples/contoso-orders/a2-queue-worker.md"},
     "dotnet-worker":       {"starter": "dotnet-queue-worker.md", "variant": "scheduled / background worker without a queue", "recipes": ["add-scheduled-job"]},
-    "dotnet-legacy-ba-da": {"starter": "dotnet-legacy-layered.md", "recipes": ["legacy-change"], "example": "examples/gain-core-services/b-legacy-ba-da.md"},
+    "dotnet-legacy-ba-da": {"starter": "dotnet-legacy-layered.md", "recipes": ["legacy-change"], "example": "examples/contoso-orders/b-legacy-ba-da.md"},
     "dotnet-library":      {"starter": "generic.md", "recipes": []},
     "dotnetfx-webapi":     {"starter": "dotnetfx-web.md", "variant": "ASP.NET Web API 2", "recipes": ["add-endpoint"]},
     "dotnetfx-mvc":        {"starter": "dotnetfx-web.md", "variant": "ASP.NET MVC 5", "recipes": ["add-mvc-page"]},

@@ -1,0 +1,41 @@
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile scripts
+        run: python -m py_compile plugins/skill-builder/scripts/*.py plugins/skill-builder/kit/tools/claude-kit/*.py
+      - name: Validate JSON
+        run: |
+          find . -name '*.json' -not -path './.git/*' -not -path '*/templates/*' -print0 \
+            | xargs -0 -n1 python -c 'import json,sys; json.load(open(sys.argv[1])); print("ok", sys.argv[1])'
+      - name: Versions agree
+        run: |
+          p=$(python -c 'import json;print(json.load(open("plugins/skill-builder/.claude-plugin/plugin.json"))["version"])')
+          k=$(tr -d '[:space:]' < plugins/skill-builder/kit/VERSION)
+          grep -q "## $p" plugins/skill-builder/CHANGELOG.md || { echo "::error::CHANGELOG has no entry for $p"; exit 1; }
+          echo "plugin $p, kit $k"
+      - name: Validate plugin
+        run: npx -y @anthropic-ai/claude-code plugin validate . || echo "::warning::claude plugin validate could not run"
+      - name: Smoke test
+        run: bash tests/smoke.sh
+      - name: No internal names
+        # FORBIDDEN_WORDS is a repository secret (one word per line), so the list itself is never public.
+        env:
+          FORBIDDEN_WORDS: ${{ secrets.FORBIDDEN_WORDS }}
+        run: |
+          [ -z "$FORBIDDEN_WORDS" ] && { echo "FORBIDDEN_WORDS not set - skipped"; exit 0; }
+          printf '%s\n' "$FORBIDDEN_WORDS" | sed '/^\s*$/d' > "$RUNNER_TEMP/words.txt"
+          if grep -rliIwf "$RUNNER_TEMP/words.txt" --exclude-dir=.git . ; then
+            echo "::error::Files above contain internal names"; exit 1; fi

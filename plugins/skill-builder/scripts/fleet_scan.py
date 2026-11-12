@@ -6,7 +6,7 @@ Runs scan_repo.py on every git repository under a folder (e.g. where you cloned 
 stacks, units, archetypes, tests, activity, risks and whether the kit is already installed - so you can choose the order
 and group similar repos. Read-only for the repos except .ai/kit/scan.* inside each (use --no-write to keep them clean).
 
-  python fleet_scan.py --repos C:\\Repos\\Infocruise --out fleet.md [--no-write]
+  python fleet_scan.py --repos C:\\Repos --out fleet.md [--no-write]
 """
 from __future__ import annotations
 

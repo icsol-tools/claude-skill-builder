@@ -7,4 +7,4 @@
 4. Recipes are numbered steps a developer (or Claude) can follow literally in this repo: exact folders, file-name patterns,
    base classes/interfaces, registration points, and the existing file to copy. The recipe skills point here.
 5. Anything the team did not confirm stays marked `(confirm)`.
-Depth and tone to aim for: `examples/gain-core-services/a1-cqs-api.md` and `a2-queue-worker.md`.
+Depth and tone to aim for: `examples/contoso-orders/a1-cqs-api.md` and `a2-queue-worker.md` (a fictional repo).

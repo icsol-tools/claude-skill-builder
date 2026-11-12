@@ -8,7 +8,7 @@ namespace __PREFIX__.API.Middleware
     /// configuration "Security:ApiKeys" (an array; set it with user-secrets or server environment variables,
     /// never in appsettings.json). Fails closed: with no keys configured, every protected request is rejected.
     /// Paths in "Security:AnonymousPaths" (default: /api/v1/health) and Swagger in Development are open.
-    /// If this API must use a different scheme (e.g. the Gain token used by Gain.Integrations),
+    /// If this API must use a different scheme (e.g. a company token or OAuth),
     /// replace this middleware and record the decision in .ai/decisions.md.
     /// </summary>
     public class ApiKeyMiddleware

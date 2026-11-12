@@ -9,14 +9,14 @@
   Works in Windows PowerShell 5.1 and PowerShell 7. Normally run by the {{PREFIX}}-new-service skill.
 
 .EXAMPLE
-  .\tools\claude-kit\templates\new-service.ps1 -Name Gain.Flipkart.Integration -Purpose "Receives Flipkart vehicle bookings and creates DMS bookings."
+  .\tools\claude-kit\templates\new-service.ps1 -Name Contoso.Marketplace.API -Purpose "Receives marketplace orders and creates them in the order system."
 .EXAMPLE
-  .\tools\claude-kit\templates\new-service.ps1 -Name Gain.Warranty.API -Folder net10_services -Port 5240 -Purpose "Warranty claims API for the dealer app."
+  .\tools\claude-kit\templates\new-service.ps1 -Name Contoso.Warranty.API -Folder services -Port 5240 -Purpose "Warranty claims API for the dealer app."
 #>
 param(
     [Parameter(Mandatory = $true)] [string] $Name,
     [Parameter(Mandatory = $true)] [string] $Purpose,
-    [string] $Folder = 'net10_services',
+    [string] $Folder = 'services',
     [string] $Template = 'a1-api',
     [int] $Port = 0,
     [string] $RepoRoot = (Resolve-Path "$PSScriptRoot/../../..").Path
@@ -24,7 +24,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 if ($Name -notmatch '^[A-Z][A-Za-z0-9]*(\.[A-Z][A-Za-z0-9]*)+$') {
-    throw "Name '$Name' must be dotted PascalCase, e.g. Gain.Warranty.API (letters and digits only)."
+    throw "Name '$Name' must be dotted PascalCase, e.g. Contoso.Warranty.API (letters and digits only)."
 }
 if ($Purpose -match '["`$]') { throw "Purpose must not contain quotes, backticks or dollar signs." }
 
@@ -43,7 +43,7 @@ if ($Port -eq 0) {
     while ($used.ContainsKey($Port)) { $Port++ }
 }
 
-# Project prefix: Gain.Warranty.API -> projects Gain.Warranty.API + Gain.Warranty.CQS (house convention)
+# Project prefix: Contoso.Warranty.API -> projects Contoso.Warranty.API + Contoso.Warranty.CQS (house convention)
 $prefix = if ($Name.EndsWith('.API')) { $Name.Substring(0, $Name.Length - 4) } else { $Name }
 
 $tokens = [ordered]@{

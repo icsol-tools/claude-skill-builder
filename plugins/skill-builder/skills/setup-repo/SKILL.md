@@ -14,7 +14,7 @@ team's standards.**
 **Builder files.** This skill lives in `<plugin>/skills/setup-repo/`. Everything it uses is under `<plugin>` (two folders up from
 this file; Claude Code shows the skill's base directory when it loads). Below, `$BUILDER` means that plugin folder:
 `$BUILDER/scripts/` (scanner, installer), `$BUILDER/library/` (skills, archetype starters, standards, doc templates,
-`examples/gain-core-services/` = a finished reference repo), `$BUILDER/kit/` (tools and workflows copied into repos).
+`examples/contoso-orders/` = a finished reference repo), `$BUILDER/kit/` (tools and workflows copied into repos).
 
 **Ground rules for the whole run**
 - Nothing is written to the repo before the plan is confirmed, except `.ai/kit/scan.*` and `.ai/kit/plan.*`.
@@ -29,12 +29,12 @@ this file; Claude Code shows the skill's base directory when it loads). Below, `
 3. Existing setup:
    - `.ai/kit/manifest.json` exists → the kit is already installed. Offer `/skill-builder:upgrade-kit` or
      `/skill-builder:add-skill` instead, and stop unless the user wants a full redo.
-   - An existing `CLAUDE.md`, `.ai/`, `.claude/` or a plugin-based setup like the Gain-Core-Services POC → keep their content. The
+   - An existing `CLAUDE.md`, `.ai/`, `.claude/` or an earlier plugin-based POC setup → keep their content. The
      installer never overwrites files it did not create; you merge the kit sections into them in Phase 5. Existing
      `.ai/archetypes`, `.ai/standards` and `<unit>/.ai/` packs are reused as the starting point instead of re-mining.
-   - **Migrating a POC setup** (for example Gain-Core-Services with `tools/claude/gain-dev`, `tools/gain-docgen`, `docs-*.yml`
+   - **Migrating a POC setup** (for example a repo with its own plugin folder, its own doc generator, `docs-*.yml`
      workflows and a marketplace entry in `.claude/settings.json`), add these clean-up items to the plan in Phase 5:
-     - Map the old skills onto kit skills with the same prefix (`gain-dev:feature` → `gain-feature`). Old recipe skills become
+     - Map the old skills onto kit skills with the same prefix (`old-plugin:feature` → `<prefix>-feature`). Old recipe skills become
        recipe skills.
      - Rename `<unit>/.ai/solution.yaml` to `unit.yaml`; the kit reads both.
      - After the kit is verified, with the user's confirmation: remove the old workflows, generator folder, plugin folder,
@@ -102,7 +102,7 @@ export tool is wanted (recommend it when the units use SQL Server).
    create, the files you will write (standards, archetypes, recipe skills, CLAUDE.md files, unit packs), the files it will merge,
    any conflicts, and the decisions from the interview. Show a short summary and **ask for confirmation**. Stop here if it isn't given.
 3. Deploy the kit: `python "$BUILDER/scripts/install_kit.py" --repo .`
-4. Write the repo-owned knowledge. Use the evidence from Phase 3, and reach the depth of `$BUILDER/library/examples/gain-core-services/`:
+4. Write the repo-owned knowledge. Use the evidence from Phase 3, and reach the depth of `$BUILDER/library/examples/contoso-orders/`:
    - `.ai/standards/<stack>-conventions.md` for each stack, from `$BUILDER/library/standards/conventions.template.md`.
    - Fill every `<!-- fill -->` in the seeded standards (`secrets-and-config.md`, `frontend-security.md`, `definition-of-done.md`)
      with this repo's facts. Delete lines that don't apply.
@@ -117,7 +117,7 @@ export tool is wanted (recommend it when the units use SQL Server).
    - Fill every placeholder. `{{BODY}}` holds the numbered steps of the archetype's recipe, made concrete for this repo, and
      `{{CHECKLIST}}` holds the checks that catch the usual misses: registration, sibling lists, config, tests.
    - The `description` says when to use the skill, under about 300 characters.
-   - Use `$BUILDER/library/examples/gain-core-services/recipe-skill-add-subprocess.md` as the bar for concreteness.
+   - Use `$BUILDER/library/examples/contoso-orders/recipe-skill-add-message-handler.md` as the bar for concreteness.
 6. Units:
    - Run `python tools/claude-kit/docgen.py`.
    - For each in-scope unit, write `<unit>/.ai/unit.yaml` and `<unit>/CLAUDE.md` from `.ai/templates/`. Fill in the archetype per

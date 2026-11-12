@@ -191,6 +191,17 @@ def find_solutions(root: Path) -> list[Path]:
         if any(f.endswith((".sln", ".slnx")) for f in filenames):
             sols.add(Path(dirpath))
             dirnames[:] = []  # a solution folder owns everything below it (nested .sln files are ignored)
+    # .NET project folders without a .sln that setup registered as units (kind dotnet-project in the manifest)
+    man = root / ".ai" / "kit" / "manifest.json"
+    if man.exists():
+        try:
+            for u in json.loads(man.read_text(encoding="utf-8")).get("units", []):
+                p = root / u.get("path", "")
+                if u.get("kind") == "dotnet-project" and p.is_dir() and not is_excluded(u["path"], excludes) \
+                        and not any(p == s or s in p.parents for s in sols):
+                    sols.add(p)
+        except (ValueError, OSError):
+            pass
     return sorted(sols)
 
 
@@ -1080,7 +1091,7 @@ def build(root: Path, only: str | None) -> dict[Path, str]:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--root", default=str(Path(__file__).resolve().parents[2]), help="monorepo root")
-    ap.add_argument("--solution", help="only this solution: folder name (Gain.Integrations) or repo-relative path (net10_services/Gain.Integrations)")
+    ap.add_argument("--solution", help="only this solution: folder name (Orders.Api) or repo-relative path (services/Orders.Api)")
     ap.add_argument("--check", action="store_true", help="do not write; exit 1 if generated docs are stale")
     a = ap.parse_args()
     root = Path(a.root).resolve()

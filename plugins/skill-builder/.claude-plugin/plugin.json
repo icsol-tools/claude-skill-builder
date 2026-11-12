@@ -3,7 +3,20 @@
   "displayName": "Skill Builder",
   "version": "1.0.0",
   "description": "Scans a repository, interviews the team, and deploys repo-specific Claude Code skills, knowledge packs, doc tools and CI into it. Supports .NET Core, .NET Framework, React/Vite, Next.js and Angular.",
-  "author": { "name": "Infocruise engineering" },
+  "author": {
+    "name": "icsol-tools",
+    "url": "https://github.com/icsol-tools"
+  },
   "license": "LicenseRef-Proprietary",
-  "keywords": ["skills", "onboarding", "knowledge-base", "dotnet", "react", "nextjs", "angular"]
+  "keywords": [
+    "skills",
+    "onboarding",
+    "knowledge-base",
+    "dotnet",
+    "react",
+    "nextjs",
+    "angular"
+  ],
+  "homepage": "https://github.com/icsol-tools/claude-skill-builder",
+  "repository": "https://github.com/icsol-tools/claude-skill-builder"
 }

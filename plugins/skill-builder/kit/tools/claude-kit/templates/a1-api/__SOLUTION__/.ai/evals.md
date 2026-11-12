@@ -5,4 +5,4 @@
 ## E1 "Add an endpoint that returns <something> by id"
 - **Must touch:** Dto, Query + Result + Handler in `__PREFIX__.CQS/Queries`, a controller action shaped like `HealthController`.
 - **Must not:** build SQL from values; skip the API key; put logic in the controller.
-- **Pass if:** the plan follows `.ai/archetypes/a1-cqs-api.md` step by step.
+- **Pass if:** the plan follows `.ai/archetypes/dotnet-cqs-api.md` step by step.

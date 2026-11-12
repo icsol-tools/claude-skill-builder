@@ -10,19 +10,19 @@
   - Objects written as Db.dbo.Name are read from that database.
   - Objects written without a database are read from the database behind the handler's
     connection string key, using <solution>/.ai/db-map.json, for example:
-        { "PreSaleConnectionString": "Presale", "WorkshopConnectionString": "TSWorkshop" }
+        { "SalesConnectionString": "Sales", "ServiceConnectionString": "Service" }
     db-map.json holds database NAMES only and is safe to commit. Never put connection
     strings or passwords in it.
   - Databases listed in "_ignore_databases" (in db-map.json) are skipped, e.g. databases that
     no longer exist but are still referenced by old code:
-        { "_ignore_databases": ["DCES"], "Constring": "Presale" }
+        { "_ignore_databases": ["OldArchiveDb"], "Constring": "Sales" }
 
   Use a READ-ONLY login (db_datareader + VIEW DEFINITION). The script only runs SELECTs.
   Works in Windows PowerShell 5.1 and PowerShell 7 with no extra modules.
 
 .EXAMPLE
   # SQL Server on a remote Linux host, SQL authentication, self-signed certificate
-  .\tools\claude-kit\export-db-objects.ps1 -Solution net10_services\MyService -Server 10.0.0.25 -Port 1433 -SqlUser docs_reader -TrustServerCertificate
+  .\tools\claude-kit\export-db-objects.ps1 -Solution services\MyService -Server 10.0.0.25 -Port 1433 -SqlUser docs_reader -TrustServerCertificate
 .EXAMPLE
   # Windows authentication, default instance
   .\tools\claude-kit\export-db-objects.ps1 -Solution MyApi -Server DEVSQL01

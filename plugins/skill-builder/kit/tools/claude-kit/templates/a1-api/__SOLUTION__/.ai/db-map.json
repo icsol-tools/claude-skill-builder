@@ -1,4 +1,4 @@
 {
   "_note": "Database NAMES only. Never connection strings.",
-  "CommonConnectionString": "TSCommon"
+  "CommonConnectionString": ""
 }

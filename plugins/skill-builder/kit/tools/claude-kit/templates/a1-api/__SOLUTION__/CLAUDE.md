@@ -4,7 +4,7 @@ __PURPOSE__
 Archetype: A1 CQS HTTP API. See `.ai/solution.yaml`.
 
 Read before changing code: `.ai/overview.md`, `.ai/gotchas.md`, `.ai/decisions.md`, then the repo-root
-`.ai/archetypes/a1-cqs-api.md` and `.ai/standards/`. Facts: `.ai/generated/`.
+`.ai/archetypes/dotnet-cqs-api.md` and `.ai/standards/`. Facts: `.ai/generated/`.
 
 Build: `dotnet build __SOLUTION__.slnx -c Release`
 Run:   `dotnet run --project __PREFIX__.API` (Swagger at /swagger in Development)

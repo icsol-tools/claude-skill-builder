@@ -15,7 +15,7 @@ every routing code appears in every routing table -->
 
 ## Recipe: add-message-handler
 <!-- fill: numbered steps incl. config/mapping rows, query, payload classes, endpoint constants, domain method, every consumer
-switch to update, write-back, DI. See examples/gain-core-services/recipe-skill-add-subprocess.md for the depth expected. -->
+switch to update, write-back, DI. See examples/contoso-orders/recipe-skill-add-message-handler.md for the depth expected. -->
 
 ## Recipe: add-integration-target
 <!-- fill: auth config section, base URL, auth handler, per-target payloads, routing branch -->

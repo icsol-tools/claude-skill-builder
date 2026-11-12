@@ -79,7 +79,7 @@ namespace __PREFIX__.API
         private void AddContexts(IServiceCollection services)
         {
             // EF Core contexts for writes, one per database, e.g.:
-            // services.AddDbContext<PreSaleContext>(o => o.UseSqlServer(_configuration.GetConnectionString("PreSaleConnectionString")));
+            // services.AddDbContext<SalesContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SalesConnectionString")));
         }
 
         private void AddRepositories(IServiceCollection services)

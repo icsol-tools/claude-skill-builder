@@ -64,7 +64,7 @@ def render(src: Path, subs: dict[str, str]) -> bytes:
 def validate_plan(plan: dict) -> list[str]:
     errs = []
     if not re.fullmatch(r"[a-z][a-z0-9]{1,15}", plan.get("prefix", "")):
-        errs.append("prefix must be 2-16 lower-case letters/digits, starting with a letter (e.g. 'gain', 'dms')")
+        errs.append("prefix must be 2-16 lower-case letters/digits, starting with a letter (e.g. 'ord', 'dms')")
     if not plan.get("repo_name"):
         errs.append("repo_name is required")
     if not plan.get("units"):
